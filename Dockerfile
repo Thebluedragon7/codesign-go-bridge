@@ -4,7 +4,7 @@ WORKDIR /app
 RUN npm install -g pnpm@12.23.0
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --prod --frozen-lockfile
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 FROM node:24.22.3-alpine3.23
 
