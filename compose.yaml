@@ -1,0 +1,32 @@
+services:
+  bridge:
+    build: .
+    image: codesign-go-bridge:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8787"
+      LOG_LEVEL: info
+      USER_AGENT: codesign-go-bridge/0.1.0
+      SESSION_MODE: global
+      # Pin this to keep the same session (and prompt cache) across restarts.
+      # CODESIGN_SESSION_ID: ses_replace-with-a-stable-id
+    user: "node"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "require('net').connect(8787,'127.0.0.1').on('connect',()=>process.exit(0)).on('error',()=>process.exit(1))"
+      interval: 30s
+      timeout: 3s
+      retries: 3

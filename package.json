@@ -1,0 +1,31 @@
+{
+  "name": "codesign-go-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A small HTTP proxy that lets Open CoDesign use the OpenCode Go inference endpoint.",
+  "license": "MIT",
+  "author": "Milan Gurung",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thebluedragon7/codesign-go-bridge.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "pnpm@12.23.0+sha512.02da94ffaf133f46074322afe552f90d40b5f71ae259aefbccdacc5085b1d617e98d65e0131f5748b9b67445978ee5055d7d59a473f1eef0d504854fefcd5975",
+  "scripts": {
+    "start": "node src/index.ts",
+    "dev": "node --watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform": "^0.97.4",
+    "@effect/platform-node": "^0.108.4",
+    "effect": "^3.22.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "typescript": "^7.0.2"
+  }
+}

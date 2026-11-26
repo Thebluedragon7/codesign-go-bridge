@@ -1,0 +1,5 @@
+engineStrict: true
+# Optional native accelerators; not needed by this project.
+allowBuilds:
+  '@parcel/watcher': false
+  msgpackr-extract: false
