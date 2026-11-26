@@ -1,7 +1,11 @@
 import { createServer } from 'node:http';
 import { HttpServer } from '@effect/platform';
-import { NodeHttpClient, NodeHttpServer, NodeRuntime } from '@effect/platform-node';
-import { Effect, LogLevel, Logger } from 'effect';
+import {
+  NodeHttpClient,
+  NodeHttpServer,
+  NodeRuntime,
+} from '@effect/platform-node';
+import { Effect, Logger, LogLevel } from 'effect';
 import { AppConfig, layer as configLayer } from './config.ts';
 import { Proxy, layer as proxyLayer } from './proxy.ts';
 
@@ -18,7 +22,9 @@ const program = Effect.gen(function* () {
     `Proxy running at http://${config.host}:${config.port} -> ${config.upstreamBaseUrl}`,
   );
   if (config.sessionMode === 'project') {
-    yield* Effect.logInfo('Session mode: project (derived from first user message)');
+    yield* Effect.logInfo(
+      'Session mode: project (derived from first user message)',
+    );
   }
 
   yield* HttpServer.serveEffect()(proxy.handle).pipe(

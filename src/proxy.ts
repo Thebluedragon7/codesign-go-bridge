@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
+import * as Headers from '@effect/platform/Headers';
 import * as HttpClient from '@effect/platform/HttpClient';
 import * as HttpClientRequest from '@effect/platform/HttpClientRequest';
-import * as Headers from '@effect/platform/Headers';
 import * as HttpServerRequest from '@effect/platform/HttpServerRequest';
 import * as HttpServerResponse from '@effect/platform/HttpServerResponse';
 import { Context, Effect, Layer, Option } from 'effect';
@@ -85,9 +85,7 @@ const projectSessionId = (bytes: Uint8Array): string | undefined => {
 type Handle = Effect.Effect<
   HttpServerResponse.HttpServerResponse,
   never,
-  | AppConfig
-  | HttpClient.HttpClient
-  | HttpServerRequest.HttpServerRequest
+  AppConfig | HttpClient.HttpClient | HttpServerRequest.HttpServerRequest
 >;
 
 export interface ProxyShape {
@@ -124,7 +122,7 @@ const handle: Handle = Effect.gen(function* () {
   const session =
     incomingSession ||
     (config.sessionMode === 'project'
-      ? projectSessionId(bytes) ?? config.sessionId
+      ? (projectSessionId(bytes) ?? config.sessionId)
       : config.sessionId);
   headers = Headers.set(headers, 'x-opencode-session', session);
   headers = Headers.set(headers, 'user-agent', config.userAgent);

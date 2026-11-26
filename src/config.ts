@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { ConfigError } from 'effect/ConfigError';
 import { Config, Context, Layer } from 'effect';
+import type { ConfigError } from 'effect/ConfigError';
 
 export interface AppConfigShape {
   readonly host: string;
@@ -30,15 +30,18 @@ const config = Config.all({
   userAgent: Config.string('USER_AGENT').pipe(
     Config.withDefault('codesign-go-bridge/0.1.0'),
   ),
-  sessionMode: Config.literal('global', 'project')('SESSION_MODE').pipe(
-    Config.withDefault('global'),
-  ),
+  sessionMode: Config.literal(
+    'global',
+    'project',
+  )('SESSION_MODE').pipe(Config.withDefault('global')),
   sessionId: Config.string('CODESIGN_SESSION_ID').pipe(
     Config.withDefault(generatedSessionId),
   ),
-  logLevel: Config.literal('info', 'warn', 'error')('LOG_LEVEL').pipe(
-    Config.withDefault('info'),
-  ),
+  logLevel: Config.literal(
+    'info',
+    'warn',
+    'error',
+  )('LOG_LEVEL').pipe(Config.withDefault('info')),
 });
 
 export const layer: Layer.Layer<AppConfig, ConfigError> = Layer.effect(
