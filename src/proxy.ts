@@ -92,7 +92,10 @@ export interface ProxyShape {
   readonly handle: Handle;
 }
 
-export class Proxy extends Context.Tag('Proxy')<Proxy, ProxyShape>() {}
+export class ProxyService extends Context.Tag('Proxy')<
+  ProxyService,
+  ProxyShape
+>() {}
 
 const handle: Handle = Effect.gen(function* () {
   const started = yield* Effect.sync(() => performance.now());
@@ -158,7 +161,7 @@ const handle: Handle = Effect.gen(function* () {
   ),
 );
 
-export const layer: Layer.Layer<Proxy> = Layer.succeed(
-  Proxy,
-  Proxy.of({ handle }),
+export const layer: Layer.Layer<ProxyService> = Layer.succeed(
+  ProxyService,
+  ProxyService.of({ handle }),
 );

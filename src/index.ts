@@ -7,11 +7,11 @@ import {
 } from '@effect/platform-node';
 import { Effect, Logger, LogLevel } from 'effect';
 import { AppConfig, layer as configLayer } from './config.ts';
-import { Proxy, layer as proxyLayer } from './proxy.ts';
+import { ProxyService, layer as proxyLayer } from './proxy.ts';
 
 const program = Effect.gen(function* () {
   const config = yield* AppConfig;
-  const proxy = yield* Proxy;
+  const proxy = yield* ProxyService;
 
   const server = yield* NodeHttpServer.make(createServer, {
     host: config.host,
