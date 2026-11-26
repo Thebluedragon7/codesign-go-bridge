@@ -7,7 +7,15 @@ Requires Node 24 and pnpm 12.
 ```sh
 pnpm install
 pnpm dev
+pnpm lint
 pnpm typecheck
+```
+
+`pnpm lint` runs [Biome](https://biomejs.dev) for formatting, lint rules, and
+import order. Apply its fixes automatically with:
+
+```sh
+pnpm lint:fix
 ```
 
 ## Commit messages
@@ -47,10 +55,13 @@ chore: pin pnpm to 12.23.0
 
 Commit messages are checked by commitlint in a `commit-msg` hook and in CI. Use `git commit --no-verify` only when you have a reason to bypass the hook; CI still checks pull requests.
 
+Staged files are formatted and linted by Biome in a `pre-commit` hook, so a
+commit that changes code will have those fixes applied before it is recorded.
+
 ## Pull requests
 
 - Keep changes focused and explain the behavior they change.
-- Run `pnpm typecheck` before opening a PR.
+- Run `pnpm lint` and `pnpm typecheck` before opening a PR.
 - Sign off your commits with the Developer Certificate of Origin (DCO):
 
 ```sh
